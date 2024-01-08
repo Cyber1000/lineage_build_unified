@@ -53,8 +53,16 @@ prep_build() {
     cp ./lineage_build_unified/local_manifests_${MODE}/*.xml .repo/local_manifests
     echo ""
 
-    echo "Syncing repos"
-    repo sync -c --force-sync --no-clone-bundle --no-tags -j$(nproc --all)
+    workerNetwork=$(nproc --all)
+    workerLocal=$(( 4*workerNetwork ))
+
+    echo "Syncing repos with $workerNetwork network-worker and $workerLocal local-worker"
+    #repo sync -c --force-sync --no-clone-bundle --no-tags -j$(nproc --all)
+    repo sync --force-sync --no-clone-bundle --no-tags -c -n -j${workerNetwork} && repo sync --force-sync --no-clone-bundle --no-tags -c -l -j${workerLocal}
+
+    echo "Removing .repo"
+    rm -rf .repo
+    df -h
     echo ""
 
     echo "Setting up build environment"
