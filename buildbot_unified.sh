@@ -81,24 +81,24 @@ prep_build() {
     df -h
     echo ""
 
-    echo "Unmounting and removing swap file."
-    sudo swapoff -v /dev/mapper/buildvg-swap
-    sudo lvremove /dev/mapper/buildvg-swap
+    # echo "Unmounting and removing swap file."
+    # sudo swapoff -v /dev/mapper/buildvg-swap
+    # sudo lvremove /dev/mapper/buildvg-swap
 
-    echo "Recreating swap"
-    # create and activate swap
-    sudo lvcreate -L 25G -n swap "buildvg"
-    sudo mkswap "/dev/mapper/buildvg-swap"
-    sudo swapon "/dev/mapper/buildvg-swap"
-    echo ""
-    echo "Memory and swap:"
-    sudo free
-    echo
-    sudo swapon --show
-    echo
-    echo "Available storage:"
-    sudo df -h
-    echo
+    # echo "Recreating swap"
+    # # create and activate swap
+    # sudo lvcreate -L 25G -n swap "buildvg"
+    # sudo mkswap "/dev/mapper/buildvg-swap"
+    # sudo swapon "/dev/mapper/buildvg-swap"
+    # echo ""
+    # echo "Memory and swap:"
+    # sudo free
+    # echo
+    # sudo swapon --show
+    # echo
+    # echo "Available storage:"
+    # sudo df -h
+    # echo
 }
 
 apply_patches() {
