@@ -59,10 +59,6 @@ prep_build() {
     echo "Syncing repos with $workerNetwork network-worker and $workerLocal local-worker"
     #repo sync -c --force-sync --no-clone-bundle --no-tags -j$(nproc --all)
     repo sync --force-sync --no-clone-bundle --no-tags -c -n -j${workerNetwork} && repo sync --force-sync --no-clone-bundle --no-tags -c -l -j${workerLocal}
-
-    echo "Removing .repo"
-    rm -rf .repo
-    df -h
     echo ""
 
     echo "Setting up build environment"
@@ -79,6 +75,11 @@ prep_build() {
     repopick 342862 -r # [WA] Codec2: queue a empty work to HAL to wake up allocation thread
     repopick 342863 -r # CCodec: Use pipelineRoom only for HW decoder
     repopick 342864 -r # codec2: Change a Info print into Verbose
+
+    echo "Removing .repo"
+    rm -rf .repo
+    df -h
+    echo ""
 }
 
 apply_patches() {
